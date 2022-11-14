@@ -643,12 +643,14 @@ class WPSDB_Media_Files extends WPSDB_Addon {
 		$files_to_migrate = $determine_media_to_migrate_response['files_to_migrate'];
 		// seems like this value needs to be different depending on pull/push?
 		$bottleneck = $wpsdb->get_bottleneck();
+    do_action('wpsdb_cli_after_determine_media_to_migrate', $files_to_migrate);
 
 		while ( !empty( $files_to_migrate ) ) {
 			$file_chunk_to_migrate = array();
 			$file_chunk_size = 0;
 			$number_of_files_to_migrate = 0;
 			foreach ( $files_to_migrate as $file_to_migrate => $file_size ) {
+        do_action('wpsdb_cli_migrating_media_file', $files_to_migrate);
 				if ( empty( $file_chunk_to_migrate ) ) {
 					$file_chunk_to_migrate[] = $file_to_migrate;
 					$file_chunk_size += $file_size;
@@ -672,6 +674,7 @@ class WPSDB_Media_Files extends WPSDB_Addon {
 				if( is_wp_error( $migrate_media_response = $wpsdb_cli->verify_cli_response( $response, 'ajax_migrate_media()' ) ) ) return $migrate_media_response;
 			}
 		}
+    do_action('wpsdb_cli_after_media_library_migration');
 		return true;
 	}
 }
