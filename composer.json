@@ -1,5 +1,5 @@
 {
-  "name": "wp-sync-db/wp-sync-db-media-files",
+  "name": "situation/wp-sync-db-media-files",
   "type": "wordpress-plugin",
   "homepage": "https://github.com/wp-sync-db/wp-sync-db-media-files",
   "license": "GPL-2.0",
